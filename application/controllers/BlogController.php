@@ -104,6 +104,7 @@ class BlogController extends CI_Controller {
 				'description' => $posts["description"]
 			];
 			$insert = $this->BlogModel->insertBlog($data);
+			$this->session->set_flashdata($insert['status'], $insert['messeage']);
 			redirect('BlogController/');
 		}
 		$this->tambah();
@@ -153,9 +154,13 @@ class BlogController extends CI_Controller {
 
 			$update = $this->BlogModel->updateBlog($id,$data);
 			if ($update['status'] == true) {
-				echo '<script>alert("Success!! ID Blog : '.$update['messeage'].'"); window.location="'.site_url('BlogController/').'"</script>';
+				$this->session->set_flashdata('flashmesseage', $update['messeage']);
+				redirect('BlogController/');
+				// echo '<script>alert("Success!! ID Blog : '.$update['messeage'].'"); window.location="'.site_url('BlogController/').'"</script>';
 			} else {
-				echo '<script>alert("Failed!! ID Blog : '.$update['messeage'].'"); window.location="'.site_url('BlogController/').'"</script>';
+				$this->session->set_flashdata('flashmesseage', $update['messeage']);
+				redirect('BlogController/');
+				// echo '<script>alert("Failed!! ID Blog : '.$update['messeage'].'"); window.location="'.site_url('BlogController/').'"</script>';
 			}
 		}
 		$this->edit($id);
@@ -165,10 +170,25 @@ class BlogController extends CI_Controller {
 	{
 		$del = $this->BlogModel->deleteBlog($id);
 		if ($del['status'] == true) {
-			echo '<script>alert("Success!! Blog : '.$del['messeage'].'"); window.location="'.site_url('BlogController/').'"</script>';
+			$this->session->set_flashdata('flashmesseage', $del['messeage']);
+				redirect('BlogController/');
+			// echo '<script>alert("Success!! Blog : '.$del['messeage'].'"); window.location="'.site_url('BlogController/').'"</script>';
 		} else {
-			echo '<script>alert("Failed!! Blog : '.$del['messeage'].'"); window.location="'.site_url('BlogController/').'"</script>';
+			$this->session->set_flashdata('flashmesseage', $del['messeage']);
+				redirect('BlogController/');
+			// echo '<script>alert("Failed!! Blog : '.$del['messeage'].'"); window.location="'.site_url('BlogController/').'"</script>';
 		}
+	}
+
+	public function homeloginview()
+	{
+		$data['statuspagehead'] = 0;
+		$this->template->loadView('Login Page','blogloginpage',$data);
+	}
+
+	public function logout()
+	{
+		// code...
 	}
 
 }

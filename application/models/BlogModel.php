@@ -7,7 +7,7 @@ class BlogModel extends CI_Model {
 	public function getBlog($limit = null, $offset = null)
 	{
 		$this->db->limit($limit, $offset);
-		$this->db->order_by('date', 'desc');
+		$this->db->order_by('id', 'desc');
 		$get = $this->db->get('blog');
 		return $get;
 	}
@@ -32,9 +32,9 @@ class BlogModel extends CI_Model {
 		$ins = $this->db->insert('blog', $data);
 		// $this->db->affected_rows();
 		if ($ins == true) {
-			$send = ['status' => true, 'messeage' => 'data berhasil ditambahkan'];
+			$send = ['status' => 'flashmesseage', 'messeage' => '<div class="alert alert-success" role="alert">data berhasil ditambahkan</div>'];
 		} else {
-			$send = ['status' => false, 'messeage' => 'data gagal ditambahkan'];
+			$send = ['status' => 'flashmesseage', 'messeage' => '<div class="alert alert-danger" role="alert">data gagal ditambahkan</div>'];
 		}
 		return $send;
 	}
@@ -44,9 +44,9 @@ class BlogModel extends CI_Model {
 		$this->db->where('id', $id);
 		$ins = $this->db->update('blog', $data);
 		if ($ins == true) {
-			$send = ['status' => true, 'messeage' => 'data berhasil diperbaharui'];
+			$send = ['status' => true, 'messeage' => '<div class="alert alert-success" role="alert">data '.$id.' berhasil diperbaharui</div>'];
 		} else {
-			$send = ['status' => false, 'messeage' => 'data gagal diperbaharui'];
+			$send = ['status' => false, 'messeage' => '<div class="alert alert-danger" role="alert">data '.$id.' gagal diperbaharui</div>'];
 		}
 		return $send;
 	}
@@ -56,9 +56,9 @@ class BlogModel extends CI_Model {
 		$this->db->where('id', $id);
 		$del = $this->db->delete('blog');
 		if ($del == true) {
-			$send = ['status' => true, 'messeage' => 'data berhasil dihapus'];
+			$send = ['status' => true, 'messeage' => '<div class="alert alert-success" role="alert">data '.$id.' berhasil diperbaharui</div>'];
 		} else {
-			$send = ['status' => false, 'messeage' => 'data gagal dihapus'];
+			$send = ['status' => false, 'messeage' => '<div class="alert alert-danger" role="alert">data '.$id.' gagal diperbaharui</div>'];
 		}
 		return $send;
 	}

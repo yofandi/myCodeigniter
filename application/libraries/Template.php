@@ -23,4 +23,5 @@ class Template
 		);
 		$this->CI->load->view('layout/_layout', $field);
 	}
+	
 }
